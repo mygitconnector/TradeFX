@@ -211,7 +211,7 @@ async def ConnectMetaTrader(update: Update, trade: dict, enterTrade: bool):
 
     # creates connection to MetaAPI
     api = MetaApi(API_KEY)
-    
+    tradeaktif = []
     try:
         account = await api.metatrader_account_api.get_account(ACCOUNT_ID)
         initial_state = account.state
@@ -260,9 +260,14 @@ async def ConnectMetaTrader(update: Update, trade: dict, enterTrade: bool):
             update.effective_message.reply_text("Entering trade on MetaTrader Account ... 👨🏾‍💻")
 
             try:
+                # close all trade opene
+                tradeaktif = await connection.get_positions()
+                  for trade in tradeaktif
+                        result = await connection.close_position(trade)
                 # executes buy market execution order
                 if(trade['OrderType'] == 'Buy'):
                     for takeProfit in trade['TP']:
+                       
                         result = await connection.create_market_buy_order(trade['Symbol'], trade['PositionSize'] / len(trade['TP']), trade['StopLoss'], takeProfit)
 
                 # executes buy limit order
