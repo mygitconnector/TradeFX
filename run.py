@@ -241,17 +241,16 @@ async def ConnectMetaTrader(update: Update, trade: dict, enterTrade: bool):
         # checks if the order is a market execution to get the current price of symbol
         if(trade['Entry'] == 'NOW'):
             price = await connection.get_symbol_price(symbol=trade['Symbol'])
-
+            trade['PositionSize']=10
             # uses bid price if the order type is a buy
             if(trade['OrderType'] == 'Buy'):
                 trade['Entry'] = float(price['bid'])
-tradetrade['TP']=float(trade['Entry']+80)
-
+                trade['TP']=float(trade['Entry']+80)
+                
             # uses ask price if the order type is a sell
             if(trade['OrderType'] == 'Sell'):
                 trade['Entry'] = float(price['ask'])
-tradetrade['StopLoss']=float(trade['Entry']-30)
-
+                trade['StopLoss']=float(trade['Entry']-30)
         # produces a table with trade information
         GetTradeInformation(update, trade, account_information['balance'])
             
