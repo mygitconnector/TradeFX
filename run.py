@@ -245,10 +245,12 @@ async def ConnectMetaTrader(update: Update, trade: dict, enterTrade: bool):
             # uses bid price if the order type is a buy
             if(trade['OrderType'] == 'Buy'):
                 trade['Entry'] = float(price['bid'])
+tradetrade['TP']=float(trade['Entry']+80)
 
             # uses ask price if the order type is a sell
             if(trade['OrderType'] == 'Sell'):
                 trade['Entry'] = float(price['ask'])
+tradetrade['StopLoss']=float(trade['Entry']-30)
 
         # produces a table with trade information
         GetTradeInformation(update, trade, account_information['balance'])
@@ -267,7 +269,6 @@ async def ConnectMetaTrader(update: Update, trade: dict, enterTrade: bool):
                 # executes buy market execution order
                 if(trade['OrderType'] == 'Buy'):
                     for takeProfit in trade['TP']:
-                       
                         result = await connection.create_market_buy_order(trade['Symbol'], trade['PositionSize'] / len(trade['TP']), trade['StopLoss'], takeProfit)
 
                 # executes buy limit order
