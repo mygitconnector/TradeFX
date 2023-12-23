@@ -263,8 +263,8 @@ async def ConnectMetaTrader(update: Update, trade: dict, enterTrade: bool):
             try:
                 # close all trade opene
                 tradeaktif = await connection.get_positions()
-                  for trade in tradeaktif[]
-                        result = await connection.close_position(trade)
+                  for mytrade in tradeaktif[]
+                        result = await connection.close_position(mytrade)
                 # executes buy market execution order
                 if(trade['OrderType'] == 'Buy'):
                     for takeProfit in trade['TP']:
