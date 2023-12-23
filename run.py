@@ -261,10 +261,7 @@ async def ConnectMetaTrader(update: Update, trade: dict, enterTrade: bool):
             update.effective_message.reply_text("Entering trade on MetaTrader Account ... 👨🏾‍💻")
 
             try:
-                # close all trade opene
-                tradeaktif = await connection.get_positions()
-                  for t in range(len(tradeaktif)):
-                        result = await connection.close_position(t,tradeaktif[t])
+                
                 # executes buy market execution order
                 if(trade['OrderType'] == 'Buy'):
                     for takeProfit in trade['TP']:
